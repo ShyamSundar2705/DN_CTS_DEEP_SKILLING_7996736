@@ -7,20 +7,8 @@ CREATE OR REPLACE PROCEDURE AddNewCustomer(
 IS
 BEGIN
 
-    INSERT INTO Customers(
-        CustomerID,
-        Name,
-        DOB,
-        Balance,
-        LastModified
-    )
-    VALUES(
-        p_customer_id,
-        p_name,
-        p_dob,
-        p_balance,
-        SYSDATE
-    );
+    INSERT INTO Customers(CustomerID,Name,DOB,Balance,LastModified) 
+    VALUES(p_customer_id,p_name,p_dob,p_balance,SYSDATE);
 
     COMMIT;
 
@@ -38,11 +26,6 @@ END;
 /
 
 BEGIN
-    AddNewCustomer(
-        3,
-        'Michael Scott',
-        TO_DATE('1980-06-15','YYYY-MM-DD'),
-        5000
-    );
+    AddNewCustomer(3,'Michael Scott',TO_DATE('1980-06-15','YYYY-MM-DD'),5000);
 END;
 /

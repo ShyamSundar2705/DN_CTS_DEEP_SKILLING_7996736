@@ -14,39 +14,14 @@ ON Transactions
 FOR EACH ROW
 BEGIN
 
-    INSERT INTO AuditLog(
-        TransactionID,
-        AccountID,
-        Amount,
-        TransactionType,
-        LogDate
-    )
-    VALUES(
-        :NEW.TransactionID,
-        :NEW.AccountID,
-        :NEW.Amount,
-        :NEW.TransactionType,
-        SYSDATE
-    );
+    INSERT INTO AuditLog(TransactionID,AccountID,Amount,TransactionType,LogDate) 
+    VALUES(:NEW.TransactionID,:NEW.AccountID,:NEW.Amount,:NEW.TransactionType,SYSDATE);
 
 END;
 /
 
 --Test
-INSERT INTO Transactions(
-    TransactionID,
-    AccountID,
-    TransactionDate,
-    Amount,
-    TransactionType
-)
-VALUES(
-    3,
-    1,
-    SYSDATE,
-    1000,
-    'Deposit'
-);
+INSERT INTO Transactions(TransactionID,AccountID,TransactionDate,Amount,TransactionType) VALUES(3,1,SYSDATE,1000,'Deposit');
 
 --Verify
 SELECT * FROM AuditLog;

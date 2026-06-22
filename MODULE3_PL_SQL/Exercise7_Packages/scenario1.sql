@@ -32,7 +32,7 @@ CREATE OR REPLACE PACKAGE BODY CustomerManagement AS
     IS
     BEGIN
 
-        INSERT INTO Customers(CustomerID,Name,DOB,Balance,LastModified)
+        INSERT INTO Customers(CustomerID,Name,DOB,Balance,LastModified) 
         VALUES(p_customer_id,p_name,p_dob,p_balance,SYSDATE);
 
         COMMIT;

@@ -38,49 +38,13 @@ END;
 /
 
 --Test valid deposit
-INSERT INTO Transactions(
-    TransactionID,
-    AccountID,
-    TransactionDate,
-    Amount,
-    TransactionType
-)
-VALUES(
-    4,
-    1,
-    SYSDATE,
-    500,
-    'Deposit'
-);
+INSERT INTO Transactions(TransactionID,AccountID,TransactionDate,Amount,TransactionType) 
+VALUES(4,1,SYSDATE,500,'Deposit');
 
 --Test invalid deposit
-INSERT INTO Transactions(
-    TransactionID,
-    AccountID,
-    TransactionDate,
-    Amount,
-    TransactionType
-)
-VALUES(
-    5,
-    1,
-    SYSDATE,
-    -100,
-    'Deposit'
-);
+INSERT INTO Transactions(TransactionID,AccountID,TransactionDate,Amount,TransactionType) 
+VALUES(5,1,SYSDATE,-100,'Deposit');
 
 --Test Invalid withdrawal
-INSERT INTO Transactions(
-    TransactionID,
-    AccountID,
-    TransactionDate,
-    Amount,
-    TransactionType
-)
-VALUES(
-    6,
-    1,
-    SYSDATE,
-    50000,
-    'Withdrawal'
-);
+INSERT INTO Transactions(TransactionID,AccountID,TransactionDate,Amount,TransactionType) 
+VALUES(6,1,SYSDATE,50000,'Withdrawal');

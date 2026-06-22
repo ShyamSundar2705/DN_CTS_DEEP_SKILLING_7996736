@@ -34,22 +34,8 @@ CREATE OR REPLACE PACKAGE BODY EmployeeManagement AS
     IS
     BEGIN
 
-        INSERT INTO Employees(
-            EmployeeID,
-            Name,
-            Position,
-            Salary,
-            Department,
-            HireDate
-        )
-        VALUES(
-            p_employee_id,
-            p_name,
-            p_position,
-            p_salary,
-            p_department,
-            SYSDATE
-        );
+        INSERT INTO Employees(EmployeeID,Name,Position,Salary,Department,HireDate) 
+        VALUES(p_employee_id,p_name,p_position,p_salary,p_department,SYSDATE);
 
         COMMIT;
 

@@ -31,20 +31,8 @@ CREATE OR REPLACE PACKAGE BODY AccountOperations AS
     IS
     BEGIN
 
-        INSERT INTO Accounts(
-            AccountID,
-            CustomerID,
-            AccountType,
-            Balance,
-            LastModified
-        )
-        VALUES(
-            p_account_id,
-            p_customer_id,
-            p_account_type,
-            p_balance,
-            SYSDATE
-        );
+        INSERT INTO Accounts(AccountID,CustomerID,AccountType,Balance,LastModified) 
+        VALUES(p_account_id,p_customer_id,p_account_type,p_balance,SYSDATE);
 
         COMMIT;
 
