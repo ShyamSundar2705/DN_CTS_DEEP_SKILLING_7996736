@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- ===================== Exercise 6: Component Scanning & Annotations ===================== -->
+    <!-- Picks up classes annotated with @Service / @Repository / @Aspect in com.library package -->
+    <context:component-scan base-package="com.library"/>
+
+    <!-- ===================== Exercise 1 & 5: Explicit Bean Definitions ===================== -->
+    <bean id="bookRepositoryBean" class="com.library.repository.BookRepository"/>
+
+    <!-- ===================== Exercise 2: Setter Injection ===================== -->
+    <bean id="bookServiceSetter" class="com.library.service.BookService">
+        <property name="bookRepository" ref="bookRepositoryBean"/>
+    </bean>
+
+    <!-- ===================== Exercise 7: Constructor Injection ===================== -->
+    <bean id="bookServiceConstructor" class="com.library.service.BookService">
+        <constructor-arg ref="bookRepositoryBean"/>
+    </bean>
+
+    <!-- ===================== Exercise 3 & 8: AOP / Logging Aspect ===================== -->
+    <bean id="loggingAspect" class="com.library.aspect.LoggingAspect"/>
+
+    <!-- Enables @Aspect annotation processing and proxies advised beans -->
+    <aop:aspectj-autoproxy/>
+
+</beans>
