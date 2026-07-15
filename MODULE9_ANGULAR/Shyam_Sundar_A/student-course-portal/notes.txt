@@ -1,0 +1,45 @@
+ANGULAR PROJECT FILE NOTES
+
+1. angular.json
+Contains Angular workspace configuration, including build, development server, testing, styles, assets, and production settings.
+
+2. tsconfig.json
+Contains the base TypeScript compiler configuration used throughout the Angular project.
+
+3. tsconfig.app.json
+Contains TypeScript compiler settings specifically for the Angular application source code.
+
+4. package.json
+Contains project information, npm commands, dependencies, and development dependencies required by the application.
+
+5. src/main.ts
+The entry point of the Angular application that bootstraps and starts the root Angular component.
+
+6. src/app/app.config.ts
+Contains application-level configuration and providers for the standalone Angular application.
+
+7. src/app/app.ts
+Defines the root Angular component and connects its TypeScript logic, HTML template, and CSS styles.
+
+8. src/index.html
+The main HTML page loaded by the browser and contains the root Angular component element.
+
+BUILD OUTPUT
+
+Running ng build generates the dist folder.
+
+The main-[hash].js file contains the compiled Angular application code.
+
+The hash in the filename helps browsers detect updated application versions and prevents outdated cached files from being used.
+
+PRODUCTION BUILD BUDGETS
+
+maximumWarning(500kB):
+Angular displays a warning when the generated application bundle exceeds this size.
+
+maximumError(1MB):
+Angular stops the production build with an error when the generated application bundle exceeds this size.
+
+The initial budget checks the size of the application's initial files.
+
+The anyComponentStyle budget checks the size of an individual component's stylesheet.
