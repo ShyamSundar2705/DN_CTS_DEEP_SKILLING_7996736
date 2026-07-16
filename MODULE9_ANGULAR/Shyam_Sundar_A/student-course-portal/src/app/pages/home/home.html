@@ -1,7 +1,7 @@
 <section class="home-container">
 
   <div class="welcome-section">
-    <h1>Welcome to the Student Course Portal</h1>
+    <h1>{{ portalName }}</h1>
 
     <p>
       Browse available courses, manage your enrollments,
@@ -25,6 +25,27 @@
       <h2>8.22</h2>
       <p>GPA</p>
     </div>
+
+  </div>
+
+  <div class="binding-demo">
+
+    <button [disabled]="!isPortalActive" (click)="onEnrollClick()">
+      Enroll Now
+    </button>
+
+    <p>{{ message }}</p>
+
+    <!-- [disabled] is one-way; [(ngModel)] syncs component and view both ways -->
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      placeholder="Search courses">
+
+    <p>
+      Searching for:
+      {{ searchTerm }}
+    </p>
 
   </div>
 

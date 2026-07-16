@@ -4,4 +4,17 @@
   <p>
     Browse all courses available in the Student Course Portal.
   </p>
+
+  <div class="course-grid">
+    <app-course-card
+      *ngFor="let c of courses"
+      [course]="c"
+      (enrollRequested)="onEnroll($event)">
+    </app-course-card>
+  </div>
+
+  <p *ngIf="selectedCourseId">
+    Selected course ID:
+    {{ selectedCourseId }}
+  </p>
 </section>

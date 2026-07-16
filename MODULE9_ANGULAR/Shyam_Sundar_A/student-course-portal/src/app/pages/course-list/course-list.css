@@ -6,3 +6,11 @@
 .page-container h1 {
   color: #1e3a8a;
 }
+
+.course-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 40px;
+}
