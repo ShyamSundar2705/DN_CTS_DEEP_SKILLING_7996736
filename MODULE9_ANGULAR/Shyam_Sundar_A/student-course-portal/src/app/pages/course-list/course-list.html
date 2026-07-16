@@ -5,13 +5,22 @@
     Browse all courses available in the Student Course Portal.
   </p>
 
-  <div class="course-grid">
-    <app-course-card
-      *ngFor="let c of courses"
-      [course]="c"
-      (enrollRequested)="onEnroll($event)">
-    </app-course-card>
-  </div>
+  <p *ngIf="isLoading">Loading courses...</p>
+
+  <ng-container *ngIf="!isLoading">
+    <div class="course-grid" *ngIf="courses.length; else noCourses">
+      <app-course-card
+        *ngFor="let c of courses; trackBy: trackByCourseId"
+        [course]="c"
+        appHighlight="lightblue"
+        (enrollRequested)="onEnroll($event)">
+      </app-course-card>
+    </div>
+
+    <ng-template #noCourses>
+      <p>No courses available.</p>
+    </ng-template>
+  </ng-container>
 
   <p *ngIf="selectedCourseId">
     Selected course ID:
