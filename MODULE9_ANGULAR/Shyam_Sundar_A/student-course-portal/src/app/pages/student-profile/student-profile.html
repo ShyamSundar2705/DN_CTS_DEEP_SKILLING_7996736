@@ -4,4 +4,20 @@
   <p>
     View your student information and enrolled courses.
   </p>
+
+  <div class="enrolled-courses">
+    <h2>Enrolled Courses</h2>
+
+    <ul class="enrolled-list" *ngIf="enrolledCourses.length; else noEnrolled">
+      <li class="enrolled-item" *ngFor="let course of enrolledCourses">
+        <span class="course-name">{{ course.name }}</span>
+        <span class="course-code">{{ course.code }}</span>
+        <span class="course-credits">{{ course.credits | creditLabel }}</span>
+      </li>
+    </ul>
+
+    <ng-template #noEnrolled>
+      <p>No enrolled courses.</p>
+    </ng-template>
+  </div>
 </section>

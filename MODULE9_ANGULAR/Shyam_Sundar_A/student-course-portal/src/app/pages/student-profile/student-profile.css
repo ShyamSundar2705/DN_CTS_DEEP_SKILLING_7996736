@@ -6,3 +6,43 @@
 .page-container h1 {
   color: #1e3a8a;
 }
+
+.enrolled-courses {
+  max-width: 500px;
+  margin: 30px auto 0;
+}
+
+.enrolled-courses h2 {
+  color: #1e3a8a;
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.enrolled-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.enrolled-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+.enrolled-item .course-name {
+  color: #1e3a8a;
+  font-weight: bold;
+}
+
+.enrolled-item .course-code,
+.enrolled-item .course-credits {
+  color: #555;
+  font-size: 14px;
+}

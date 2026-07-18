@@ -1,0 +1,35 @@
+.summary-widget {
+  width: 220px;
+  padding: 25px;
+  margin: 30px auto 0;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.summary-widget h2 {
+  color: #1e3a8a;
+  font-size: 32px;
+  margin: 0;
+}
+
+.summary-widget p {
+  color: #555;
+  font-size: 17px;
+  margin-bottom: 15px;
+}
+
+.add-course-btn {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 6px;
+  background-color: #1e3a8a;
+  color: white;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.add-course-btn:hover {
+  background-color: #16305f;
+}

@@ -15,10 +15,10 @@
 
   <div class="course-details" *ngIf="isExpanded">
     <p>Course ID: {{ course.id }}</p>
-    <p>Status: {{ course.enrolled ? 'Enrolled' : 'Not Enrolled' }}</p>
+    <p>Status: {{ isEnrolled() ? 'Enrolled' : 'Not Enrolled' }}</p>
   </div>
 
-  <button class="enroll-btn" (click)="enrollRequested.emit(course.id)">
-    Enroll
+  <button class="enroll-btn" (click)="toggleEnrollment()">
+    {{ isEnrolled() ? 'Unenroll' : 'Enroll' }}
   </button>
 </div>

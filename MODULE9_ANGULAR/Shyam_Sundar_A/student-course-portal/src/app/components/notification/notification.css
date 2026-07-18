@@ -1,0 +1,15 @@
+.notification-banner {
+  max-width: 400px;
+  margin: 30px auto 0;
+  padding: 15px 25px;
+  background-color: #eef6ff;
+  border-left: 4px solid #1e3a8a;
+  border-radius: 6px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+.notification-banner p {
+  margin: 0;
+  color: #1e3a8a;
+  font-size: 14px;
+}
