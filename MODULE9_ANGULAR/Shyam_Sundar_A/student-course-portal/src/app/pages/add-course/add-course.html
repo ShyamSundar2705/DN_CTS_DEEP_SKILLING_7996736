@@ -1,0 +1,53 @@
+<section class="form-page">
+  <h1>Add Course</h1>
+
+  <form [formGroup]="courseForm" (ngSubmit)="onSubmit()" class="enrollment-form">
+
+    <div class="form-group">
+      <label for="name">Course Name</label>
+      <input
+        id="name"
+        type="text"
+        formControlName="name">
+
+      <div class="error-message" *ngIf="courseForm.get('name')?.invalid && courseForm.get('name')?.touched">
+        <span *ngIf="courseForm.get('name')?.errors?.['required']">Course name is required</span>
+        <span *ngIf="courseForm.get('name')?.errors?.['minlength']">Course name must be at least 3 characters</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="code">Course Code</label>
+      <input
+        id="code"
+        type="text"
+        formControlName="code">
+
+      <div class="error-message" *ngIf="courseForm.get('code')?.invalid && courseForm.get('code')?.touched">
+        Course code is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="credits">Credits</label>
+      <input
+        id="credits"
+        type="number"
+        formControlName="credits">
+
+      <div class="error-message" *ngIf="courseForm.get('credits')?.invalid && courseForm.get('credits')?.touched">
+        Credits must be between 1 and 6
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="courseForm.invalid || isSubmitting">Submit</button>
+    </div>
+
+  </form>
+
+  <app-loading-spinner *ngIf="isSubmitting" message="Adding course..."></app-loading-spinner>
+
+  <p class="success-message" *ngIf="submitted">Course added successfully.</p>
+  <p class="submit-error-message" *ngIf="submitError">Unable to add course.</p>
+</section>

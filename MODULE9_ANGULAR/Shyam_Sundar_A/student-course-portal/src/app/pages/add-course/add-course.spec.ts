@@ -2,20 +2,20 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 
-import { CourseList } from './course-list';
+import { AddCourse } from './add-course';
 
-describe('CourseList', () => {
-  let component: CourseList;
-  let fixture: ComponentFixture<CourseList>;
+describe('AddCourse', () => {
+  let component: AddCourse;
+  let fixture: ComponentFixture<AddCourse>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CourseList],
+      imports: [AddCourse],
       providers: [provideHttpClient(), provideHttpClientTesting()]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CourseList);
+    fixture = TestBed.createComponent(AddCourse);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

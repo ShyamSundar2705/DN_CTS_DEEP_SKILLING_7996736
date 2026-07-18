@@ -14,3 +14,26 @@
   gap: 30px;
   margin-top: 40px;
 }
+
+.course-grid-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.view-details-link {
+  color: #1e3a8a;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.view-details-link:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  color: #dc2626;
+  font-size: 15px;
+  margin-top: 20px;
+}

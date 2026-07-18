@@ -1,0 +1,16 @@
+<section class="page-container">
+  <h1>Course Details</h1>
+
+  <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+
+  <p class="error-message" *ngIf="hasError && !isLoading">Unable to load course details.</p>
+
+  <div class="details-card" *ngIf="course && !isLoading && !hasError">
+    <h2>{{ course.name }}</h2>
+    <p><strong>Code:</strong> {{ course.code }}</p>
+    <p><strong>Credits:</strong> {{ course.credits | creditLabel }}</p>
+    <p><strong>Grade Status:</strong> {{ course.gradeStatus }}</p>
+  </div>
+
+  <a class="back-link" routerLink="/courses">Back to Courses</a>
+</section>
