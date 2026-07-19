@@ -1,0 +1,74 @@
+.form-page {
+  padding: 50px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.form-page h1 {
+  color: #1e3a8a;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.enrollment-form {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  color: #1e3a8a;
+  font-weight: 500;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+.form-group input.ng-invalid.ng-touched {
+  border-color: #dc2626;
+}
+
+.form-group input.ng-valid.ng-touched {
+  border-color: #16a34a;
+}
+
+.error-message {
+  color: #dc2626;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.form-actions button {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  background-color: #1e3a8a;
+  color: white;
+}
+
+.form-actions button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}

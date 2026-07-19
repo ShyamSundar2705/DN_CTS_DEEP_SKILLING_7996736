@@ -93,3 +93,15 @@
 .enroll-btn:hover {
   background-color: #16305f;
 }
+
+.view-details-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: #1e3a8a;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.view-details-link:hover {
+  text-decoration: underline;
+}

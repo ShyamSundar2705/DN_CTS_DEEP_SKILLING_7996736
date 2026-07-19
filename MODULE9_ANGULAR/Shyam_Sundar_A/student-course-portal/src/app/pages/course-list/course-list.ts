@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 
 import { CourseCard } from '../../components/course-card/course-card';
 import { LoadingSpinner } from '../../components/loading-spinner/loading-spinner';
@@ -11,7 +10,7 @@ import { NotificationService } from '../../services/notification/notification';
 
 @Component({
   selector: 'app-course-list',
-  imports: [CommonModule, RouterLink, CourseCard, Highlight, LoadingSpinner],
+  imports: [CommonModule, CourseCard, Highlight, LoadingSpinner],
   providers: [NotificationService],
   templateUrl: './course-list.html',
   styleUrl: './course-list.css',

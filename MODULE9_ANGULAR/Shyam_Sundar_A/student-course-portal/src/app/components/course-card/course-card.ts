@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { NgClass, NgIf, NgStyle, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 import { Course } from '../../models/course.model';
 import { CreditLabelPipe } from '../../pipes/credit-label-pipe';
@@ -7,7 +8,7 @@ import { EnrollmentService } from '../../services/enrollment/enrollment';
 
 @Component({
   selector: 'app-course-card',
-  imports: [NgClass, NgIf, NgStyle, NgSwitch, NgSwitchCase, NgSwitchDefault, CreditLabelPipe],
+  imports: [NgClass, NgIf, NgStyle, NgSwitch, NgSwitchCase, NgSwitchDefault, CreditLabelPipe, RouterLink],
   templateUrl: './course-card.html',
   styleUrl: './course-card.css',
 })

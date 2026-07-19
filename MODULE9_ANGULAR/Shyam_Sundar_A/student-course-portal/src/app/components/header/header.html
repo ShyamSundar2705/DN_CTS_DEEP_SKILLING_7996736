@@ -3,12 +3,14 @@
     <h2 class="portal-name">Student Course Portal</h2>
 
     <div class="nav-links">
-      <a routerLink="/">Home</a>
-      <a routerLink="/courses">Courses</a>
-      <a routerLink="/add-course">Add Course</a>
-      <a routerLink="/profile">Profile</a>
-      <a routerLink="/enroll">Enroll</a>
-      <a routerLink="/enroll-reactive">Reactive Enroll</a>
+      <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+      <a routerLink="/courses" routerLinkActive="active-link">Courses</a>
+      <a routerLink="/add-course" routerLinkActive="active-link">Add Course</a>
+      <a routerLink="/profile" routerLinkActive="active-link">Profile</a>
+      <a routerLink="/enroll" routerLinkActive="active-link">Enroll</a>
+      <a routerLink="/enroll-reactive" routerLinkActive="active-link">Reactive Enroll</a>
+      <a *ngIf="!isLoggedIn()" routerLink="/login" routerLinkActive="active-link">Login</a>
+      <a *ngIf="isLoggedIn()" (click)="logout()" class="logout-link">Logout</a>
     </div>
   </nav>
 </header>

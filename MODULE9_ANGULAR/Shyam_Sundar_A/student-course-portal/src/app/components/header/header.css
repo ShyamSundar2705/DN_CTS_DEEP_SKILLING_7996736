@@ -30,3 +30,13 @@
 .nav-links a:hover {
   color: #facc15;
 }
+
+.nav-links a.active-link {
+  color: #facc15;
+  font-weight: 700;
+  border-bottom: 2px solid #facc15;
+}
+
+.logout-link {
+  cursor: pointer;
+}

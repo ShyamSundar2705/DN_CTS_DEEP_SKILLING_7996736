@@ -1,12 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { Home } from './pages/home/home';
-import { CourseList } from './pages/course-list/course-list';
-import { StudentProfile } from './pages/student-profile/student-profile';
-import { EnrollmentForm } from './pages/enrollment-form/enrollment-form';
-import { ReactiveEnrollmentForm } from './pages/reactive-enrollment-form/reactive-enrollment-form';
-import { AddCourse } from './pages/add-course/add-course';
-import { CourseDetails } from './pages/course-details/course-details';
+import { authGuard } from './guards/auth/auth-guard';
 
 export const routes: Routes = [
   {
@@ -14,27 +9,39 @@ export const routes: Routes = [
     component: Home
   },
   {
+    path: 'login',
+    loadComponent: () => import('./pages/login/login').then(m => m.Login)
+  },
+  {
     path: 'courses',
-    component: CourseList
+    loadComponent: () => import('./pages/course-list/course-list').then(m => m.CourseList)
   },
   {
     path: 'courses/:id',
-    component: CourseDetails
+    loadComponent: () => import('./pages/course-details/course-details').then(m => m.CourseDetails)
   },
   {
     path: 'profile',
-    component: StudentProfile
+    loadComponent: () => import('./pages/student-profile/student-profile').then(m => m.StudentProfile),
+    canActivate: [authGuard]
   },
   {
     path: 'enroll',
-    component: EnrollmentForm
+    loadComponent: () => import('./pages/enrollment-form/enrollment-form').then(m => m.EnrollmentForm),
+    canActivate: [authGuard]
   },
   {
     path: 'enroll-reactive',
-    component: ReactiveEnrollmentForm
+    loadComponent: () => import('./pages/reactive-enrollment-form/reactive-enrollment-form').then(m => m.ReactiveEnrollmentForm),
+    canActivate: [authGuard]
   },
   {
     path: 'add-course',
-    component: AddCourse
+    loadComponent: () => import('./pages/add-course/add-course').then(m => m.AddCourse),
+    canActivate: [authGuard]
+  },
+  {
+    path: '**',
+    loadComponent: () => import('./pages/not-found/not-found').then(m => m.NotFound)
   }
 ];

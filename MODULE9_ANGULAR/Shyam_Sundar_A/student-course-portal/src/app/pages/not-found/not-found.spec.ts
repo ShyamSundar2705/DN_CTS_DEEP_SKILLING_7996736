@@ -1,22 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 
-import { CourseCard } from './course-card';
+import { NotFound } from './not-found';
 
-describe('CourseCard', () => {
-  let component: CourseCard;
-  let fixture: ComponentFixture<CourseCard>;
+describe('NotFound', () => {
+  let component: NotFound;
+  let fixture: ComponentFixture<NotFound>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CourseCard],
+      imports: [NotFound],
       providers: [provideRouter([])]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CourseCard);
+    fixture = TestBed.createComponent(NotFound);
     component = fixture.componentInstance;
-    component.course = { id: 1, name: 'Angular', code: 'ANG101', credits: 4, gradeStatus: 'pending' };
     fixture.detectChanges();
   });
 

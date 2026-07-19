@@ -21,4 +21,6 @@
   <button class="enroll-btn" (click)="toggleEnrollment()">
     {{ isEnrolled() ? 'Unenroll' : 'Enroll' }}
   </button>
+
+  <a class="view-details-link" [routerLink]="['/courses', course.id]">View Details</a>
 </div>
