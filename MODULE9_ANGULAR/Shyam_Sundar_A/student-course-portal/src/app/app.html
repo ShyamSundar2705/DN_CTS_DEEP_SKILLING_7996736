@@ -1,5 +1,6 @@
 <app-header></app-header>
 <app-breadcrumb></app-breadcrumb>
+<app-loading-spinner *ngIf="loading$ | async"></app-loading-spinner>
 
 <main>
   <router-outlet></router-outlet>

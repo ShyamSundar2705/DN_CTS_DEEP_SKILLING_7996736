@@ -12,12 +12,12 @@
   <div class="stats-row">
 
     <div class="stat-card">
-      <h2>{{ courseCount }}</h2>
+      <h2>{{ courseCount$ | async }}</h2>
       <p>Courses Available</p>
     </div>
 
     <div class="stat-card">
-      <h2>3</h2>
+      <h2>{{ enrolledCount$ | async }}</h2>
       <p>Enrolled</p>
     </div>
 

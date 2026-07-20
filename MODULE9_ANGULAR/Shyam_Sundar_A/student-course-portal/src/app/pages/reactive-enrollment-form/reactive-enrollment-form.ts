@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
+import { CanComponentDeactivate } from '../../guards/unsaved-changes/unsaved-changes-guard';
 import { noCourseCode } from '../../validators/no-course-code.validator';
 import { simulateEmailCheck } from '../../validators/simulate-email-check.validator';
 
@@ -11,7 +12,7 @@ import { simulateEmailCheck } from '../../validators/simulate-email-check.valida
   templateUrl: './reactive-enrollment-form.html',
   styleUrl: './reactive-enrollment-form.css',
 })
-export class ReactiveEnrollmentForm implements OnInit {
+export class ReactiveEnrollmentForm implements OnInit, CanComponentDeactivate {
 
   enrollForm!: FormGroup;
   submitted = false;
@@ -46,6 +47,10 @@ export class ReactiveEnrollmentForm implements OnInit {
     console.log(this.enrollForm.value);
     console.log(this.enrollForm.getRawValue());
     this.submitted = true;
+  }
+
+  hasUnsavedChanges(): boolean {
+    return this.enrollForm.dirty && !this.submitted;
   }
 
   onReset(): void {

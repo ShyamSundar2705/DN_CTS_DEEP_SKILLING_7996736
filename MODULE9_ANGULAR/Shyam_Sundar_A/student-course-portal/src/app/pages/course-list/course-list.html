@@ -5,25 +5,37 @@
     Browse all courses available in the Student Course Portal.
   </p>
 
-  <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+  <div class="search-bar">
+    <input
+      #searchInput
+      type="text"
+      class="search-input"
+      [value]="searchTerm"
+      (input)="onSearch(searchInput.value)"
+      placeholder="Search courses by name">
+  </div>
 
-  <p class="error-message" *ngIf="hasError && !isLoading">Unable to load courses.</p>
+  <p class="loading-message" *ngIf="loading$ | async">Loading courses...</p>
 
-  <ng-container *ngIf="!isLoading && !hasError">
-    <div class="course-grid" *ngIf="courses.length; else noCourses">
-      <div class="course-grid-item" *ngFor="let c of courses; trackBy: trackByCourseId">
-        <app-course-card
-          [course]="c"
-          appHighlight="lightblue"
-          (enrollRequested)="onEnroll($event)">
-        </app-course-card>
-      </div>
+  <p class="error-message" *ngIf="error$ | async as error">{{ error }}</p>
+
+  <ng-container *ngIf="!(error$ | async)">
+    <div class="course-grid" *ngIf="(courses$ | async) as courses; else noCourses">
+      <ng-container *ngIf="courses.length; else noCourses">
+        <div class="course-grid-item" *ngFor="let c of courses; trackBy: trackByCourseId">
+          <app-course-card
+            [course]="c"
+            appHighlight="lightblue"
+            (enrollRequested)="onEnroll($event)">
+          </app-course-card>
+        </div>
+      </ng-container>
     </div>
-
-    <ng-template #noCourses>
-      <p>No courses available.</p>
-    </ng-template>
   </ng-container>
+
+  <ng-template #noCourses>
+    <p>No courses available.</p>
+  </ng-template>
 
   <p *ngIf="selectedCourseId">
     Selected course ID:

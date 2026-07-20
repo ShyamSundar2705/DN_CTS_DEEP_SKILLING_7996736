@@ -46,8 +46,6 @@
 
   </form>
 
-  <app-loading-spinner *ngIf="isSubmitting" message="Adding course..."></app-loading-spinner>
-
   <p class="success-message" *ngIf="submitted">Course added successfully.</p>
   <p class="submit-error-message" *ngIf="submitError">Unable to add course.</p>
 </section>

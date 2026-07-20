@@ -1,54 +1,73 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { CourseCard } from '../../components/course-card/course-card';
-import { LoadingSpinner } from '../../components/loading-spinner/loading-spinner';
 import { Highlight } from '../../directives/highlight';
 import { Course } from '../../models/course.model';
-import { CourseApiService } from '../../services/course-api.service';
 import { NotificationService } from '../../services/notification/notification';
+import { loadCourses } from '../../store/course/course.actions';
+import { selectAllCourses, selectCoursesError, selectCoursesLoading } from '../../store/course/course.selectors';
 
 @Component({
   selector: 'app-course-list',
-  imports: [CommonModule, CourseCard, Highlight, LoadingSpinner],
+  imports: [CommonModule, CourseCard, Highlight],
   providers: [NotificationService],
   templateUrl: './course-list.html',
   styleUrl: './course-list.css',
 })
 export class CourseList implements OnInit {
 
-  isLoading = true;
-  hasError = false;
-
-  courses: Course[] = [];
-
+  searchTerm = '';
   selectedCourseId: number | null = null;
 
-  constructor(
-    private courseApiService: CourseApiService,
-    private notificationService: NotificationService
-  ) { }
+  courses$: Observable<Course[]>;
+  error$: Observable<string | null>;
+  loading$: Observable<boolean>;
 
-  ngOnInit(): void {
-    this.loadCourses();
+  constructor(
+    private store: Store,
+    private route: ActivatedRoute,
+    private router: Router,
+    private notificationService: NotificationService
+  ) {
+    this.loading$ = this.store.select(selectCoursesLoading);
+
+    this.courses$ = this.store.select(selectAllCourses).pipe(
+      tap(courses => {
+        if (courses.length) {
+          this.notificationService.notify('Course Loaded');
+        }
+      })
+    );
+
+    this.error$ = this.store.select(selectCoursesError).pipe(
+      tap(error => {
+        if (error) {
+          this.notificationService.notify('Error Loading Course');
+        }
+      })
+    );
   }
 
-  loadCourses(): void {
-    this.isLoading = true;
-    this.hasError = false;
+  ngOnInit(): void {
+    this.searchTerm = this.route.snapshot.queryParamMap.get('q') ?? '';
+    this.store.dispatch(loadCourses({ searchTerm: this.searchTerm || undefined }));
+  }
 
-    this.courseApiService.getCourses().subscribe({
-      next: courses => {
-        this.courses = courses;
-        this.isLoading = false;
-        this.notificationService.notify('Course Loaded');
-      },
-      error: () => {
-        this.hasError = true;
-        this.isLoading = false;
-        this.notificationService.notify('Error Loading Course');
-      }
+  onSearch(term: string): void {
+    this.searchTerm = term;
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { q: term || null },
+      queryParamsHandling: 'merge',
     });
+
+    this.store.dispatch(loadCourses({ searchTerm: term || undefined }));
   }
 
   // trackBy keeps the list keyed by course id, so *ngFor patches only cards whose data changed
@@ -57,7 +76,6 @@ export class CourseList implements OnInit {
   }
 
   onEnroll(courseId: number): void {
-    console.log('Enrolling in course: ' + courseId);
     this.selectedCourseId = courseId;
   }
 }

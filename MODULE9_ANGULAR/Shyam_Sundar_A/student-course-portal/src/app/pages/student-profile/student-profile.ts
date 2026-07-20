@@ -1,21 +1,23 @@
 import { Component } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 import { Course } from '../../models/course.model';
 import { CreditLabelPipe } from '../../pipes/credit-label-pipe';
-import { EnrollmentService } from '../../services/enrollment/enrollment';
+import { selectEnrolledCourses } from '../../store/enrollment/enrollment.selectors';
 
 @Component({
   selector: 'app-student-profile',
-  imports: [NgFor, NgIf, CreditLabelPipe],
+  imports: [NgFor, NgIf, AsyncPipe, CreditLabelPipe],
   templateUrl: './student-profile.html',
   styleUrl: './student-profile.css',
 })
 export class StudentProfile {
 
-  constructor(private enrollmentService: EnrollmentService) { }
+  enrolledCourses$: Observable<Course[]>;
 
-  get enrolledCourses(): Course[] {
-    return this.enrollmentService.getEnrolledCourses();
+  constructor(private store: Store) {
+    this.enrolledCourses$ = this.store.select(selectEnrolledCourses);
   }
 }

@@ -8,7 +8,7 @@
       <a routerLink="/add-course" routerLinkActive="active-link">Add Course</a>
       <a routerLink="/profile" routerLinkActive="active-link">Profile</a>
       <a routerLink="/enroll" routerLinkActive="active-link">Enroll</a>
-      <a routerLink="/enroll-reactive" routerLinkActive="active-link">Reactive Enroll</a>
+      <a routerLink="/enroll/reactive" routerLinkActive="active-link">Reactive Enroll</a>
       <a *ngIf="!isLoggedIn()" routerLink="/login" routerLinkActive="active-link">Login</a>
       <a *ngIf="isLoggedIn()" (click)="logout()" class="logout-link">Logout</a>
     </div>

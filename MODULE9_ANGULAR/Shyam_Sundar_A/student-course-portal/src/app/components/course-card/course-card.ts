@@ -1,18 +1,26 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { NgClass, NgIf, NgStyle, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AsyncPipe, NgClass, NgIf, NgStyle, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Course } from '../../models/course.model';
 import { CreditLabelPipe } from '../../pipes/credit-label-pipe';
-import { EnrollmentService } from '../../services/enrollment/enrollment';
+import { enrollInCourse, unenrollFromCourse } from '../../store/enrollment/enrollment.actions';
+import { selectEnrolledCourseIds } from '../../store/enrollment/enrollment.selectors';
+
+interface EnrollmentState {
+  enrolled: boolean;
+}
 
 @Component({
   selector: 'app-course-card',
-  imports: [NgClass, NgIf, NgStyle, NgSwitch, NgSwitchCase, NgSwitchDefault, CreditLabelPipe, RouterLink],
+  imports: [AsyncPipe, NgClass, NgIf, NgStyle, NgSwitch, NgSwitchCase, NgSwitchDefault, CreditLabelPipe, RouterLink],
   templateUrl: './course-card.html',
   styleUrl: './course-card.css',
 })
-export class CourseCard implements OnChanges {
+export class CourseCard implements OnChanges, OnInit {
 
   @Input()
   course!: Course;
@@ -22,7 +30,17 @@ export class CourseCard implements OnChanges {
 
   isExpanded = false;
 
-  constructor(private enrollmentService: EnrollmentService) { }
+  // Wrapped in an object so `| async as` still renders when enrolled is false
+  // (a bare `false` would be treated as falsy by *ngIf and hide the card).
+  enrollment$!: Observable<EnrollmentState>;
+
+  constructor(private store: Store) { }
+
+  ngOnInit(): void {
+    this.enrollment$ = this.store.select(selectEnrolledCourseIds).pipe(
+      map(enrolledCourseIds => ({ enrolled: enrolledCourseIds.includes(this.course.id) }))
+    );
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['course']) {
@@ -31,9 +49,9 @@ export class CourseCard implements OnChanges {
     }
   }
 
-  get cardClasses(): Record<string, boolean> {
+  getCardClasses(enrolled: boolean): Record<string, boolean> {
     return {
-      'card--enrolled': this.isEnrolled(),
+      'card--enrolled': enrolled,
       'card--full': this.course.credits >= 4,
       'expanded': this.isExpanded,
     };
@@ -52,15 +70,11 @@ export class CourseCard implements OnChanges {
     this.isExpanded = !this.isExpanded;
   }
 
-  isEnrolled(): boolean {
-    return this.enrollmentService.isEnrolled(this.course.id);
-  }
-
-  toggleEnrollment(): void {
-    if (this.isEnrolled()) {
-      this.enrollmentService.unenroll(this.course.id);
+  toggleEnrollment(enrolled: boolean): void {
+    if (enrolled) {
+      this.store.dispatch(unenrollFromCourse({ courseId: this.course.id }));
     } else {
-      this.enrollmentService.enroll(this.course.id);
+      this.store.dispatch(enrollInCourse({ courseId: this.course.id }));
     }
     this.enrollRequested.emit(this.course.id);
   }

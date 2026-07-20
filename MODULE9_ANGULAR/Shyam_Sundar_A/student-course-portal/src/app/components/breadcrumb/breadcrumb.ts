@@ -12,7 +12,7 @@ const CRUMB_LABELS: Record<string, string> = {
   courses: 'Courses',
   profile: 'Profile',
   enroll: 'Enroll',
-  'enroll-reactive': 'Reactive Enroll',
+  reactive: 'Reactive Enroll',
   'add-course': 'Add Course',
   login: 'Login',
 };

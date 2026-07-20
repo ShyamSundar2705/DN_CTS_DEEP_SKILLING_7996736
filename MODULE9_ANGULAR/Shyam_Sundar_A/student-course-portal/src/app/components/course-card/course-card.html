@@ -1,26 +1,28 @@
-<div class="course-card" [ngClass]="cardClasses" [ngStyle]="borderStyle">
-  <span [ngSwitch]="course.gradeStatus" class="badge-wrapper">
-    <span *ngSwitchCase="'passed'" class="badge badge--passed">Passed</span>
-    <span *ngSwitchCase="'failed'" class="badge badge--failed">Failed</span>
-    <span *ngSwitchDefault class="badge badge--pending">Pending</span>
-  </span>
+<ng-container *ngIf="enrollment$ | async as state">
+  <div class="course-card" [ngClass]="getCardClasses(state.enrolled)" [ngStyle]="borderStyle">
+    <span [ngSwitch]="course.gradeStatus" class="badge-wrapper">
+      <span *ngSwitchCase="'passed'" class="badge badge--passed">Passed</span>
+      <span *ngSwitchCase="'failed'" class="badge badge--failed">Failed</span>
+      <span *ngSwitchDefault class="badge badge--pending">Pending</span>
+    </span>
 
-  <h3>{{ course.name }}</h3>
-  <p class="course-code">{{ course.code }}</p>
-  <p class="course-credits">{{ course.credits | creditLabel }}</p>
+    <h3>{{ course.name }}</h3>
+    <p class="course-code">{{ course.code }}</p>
+    <p class="course-credits">{{ course.credits | creditLabel }}</p>
 
-  <button class="details-btn" (click)="toggleExpanded()">
-    Show Details
-  </button>
+    <button class="details-btn" (click)="toggleExpanded()">
+      Show Details
+    </button>
 
-  <div class="course-details" *ngIf="isExpanded">
-    <p>Course ID: {{ course.id }}</p>
-    <p>Status: {{ isEnrolled() ? 'Enrolled' : 'Not Enrolled' }}</p>
+    <div class="course-details" *ngIf="isExpanded">
+      <p>Course ID: {{ course.id }}</p>
+      <p>Status: {{ state.enrolled ? 'Enrolled' : 'Not Enrolled' }}</p>
+    </div>
+
+    <button class="enroll-btn" (click)="toggleEnrollment(state.enrolled)">
+      {{ state.enrolled ? 'Unenroll' : 'Enroll' }}
+    </button>
+
+    <a class="view-details-link" [routerLink]="['/courses', course.id]">View Details</a>
   </div>
-
-  <button class="enroll-btn" (click)="toggleEnrollment()">
-    {{ isEnrolled() ? 'Unenroll' : 'Enroll' }}
-  </button>
-
-  <a class="view-details-link" [routerLink]="['/courses', course.id]">View Details</a>
-</div>
+</ng-container>

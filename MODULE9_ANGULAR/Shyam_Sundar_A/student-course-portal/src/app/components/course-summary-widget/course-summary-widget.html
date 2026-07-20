@@ -1,5 +1,5 @@
 <div class="summary-widget">
-  <h2>{{ totalCourses }}</h2>
+  <h2>{{ totalCourses$ | async }}</h2>
   <p>Total Courses</p>
 
   <button class="add-course-btn" (click)="addSampleCourse()">

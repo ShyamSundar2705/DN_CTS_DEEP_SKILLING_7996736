@@ -14,11 +14,17 @@ export const routes: Routes = [
   },
   {
     path: 'courses',
-    loadComponent: () => import('./pages/course-list/course-list').then(m => m.CourseList)
-  },
-  {
-    path: 'courses/:id',
-    loadComponent: () => import('./pages/course-details/course-details').then(m => m.CourseDetails)
+    loadComponent: () => import('./pages/courses-layout/courses-layout').then(m => m.CoursesLayout),
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./pages/course-list/course-list').then(m => m.CourseList)
+      },
+      {
+        path: ':id',
+        loadComponent: () => import('./pages/course-details/course-details').then(m => m.CourseDetails)
+      }
+    ]
   },
   {
     path: 'profile',
@@ -27,12 +33,7 @@ export const routes: Routes = [
   },
   {
     path: 'enroll',
-    loadComponent: () => import('./pages/enrollment-form/enrollment-form').then(m => m.EnrollmentForm),
-    canActivate: [authGuard]
-  },
-  {
-    path: 'enroll-reactive',
-    loadComponent: () => import('./pages/reactive-enrollment-form/reactive-enrollment-form').then(m => m.ReactiveEnrollmentForm),
+    loadChildren: () => import('./features/enrollment/enrollment.routes').then(m => m.ENROLLMENT_ROUTES),
     canActivate: [authGuard]
   },
   {

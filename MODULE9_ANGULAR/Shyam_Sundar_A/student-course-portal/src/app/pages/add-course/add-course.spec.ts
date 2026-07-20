@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { AddCourse } from './add-course';
 
@@ -11,7 +12,16 @@ describe('AddCourse', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AddCourse],
-      providers: [provideHttpClient(), provideHttpClientTesting()]
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideMockStore({
+          initialState: {
+            course: { courses: [], loading: false, error: null },
+            enrollment: { enrolledCourseIds: [] }
+          }
+        })
+      ]
     })
     .compileComponents();
 
